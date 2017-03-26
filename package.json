@@ -1,0 +1,41 @@
+{
+  "name": "readly",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha -R spec tests/",
+    "dev": "parallelshell \"nodemon app.js\" \"riot -w public/tags public/dist\" \"riot public/tags public/dist\"",
+    "start": "riot public/tags public/dist; node app.js",
+    "precommit": "npm test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.2",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.2",
+    "express": "^4.14.1",
+    "express-session": "^1.14.2",
+    "method-override": "^2.3.7",
+    "mongodb": "^2.2.11",
+    "mongoose": "^4.7.0",
+    "morgan": "^1.7.0",
+    "mysql": "^2.13.0",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-local": "^1.0.0",
+    "request": "^2.79.0",
+    "sequelize": "^3.30.2"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "husky": "^0.13.1",
+    "mocha": "^3.2.0",
+    "nodemon": "^1.11.0",
+    "parallelshell": "~2.0.0"
+  }
+}

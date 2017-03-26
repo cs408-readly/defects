@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+    <head>
+        <!-- Riot import -->
+        <script src="https://cdn.jsdelivr.net/riot/3.1/riot.min.js"></script>
+        <script src="./dist/settings.js"></script>
+
+    </head>
+    <body>
+        <settings></settings>
+
+        <script type="text/javascript">
+
+        var x = new XMLHttpRequest();
+
+        x.open('GET', '/user', false);
+        x.send();
+
+        var user = JSON.parse(x.responseText);
+
+        riot.mount('*', {
+            user: user
+        });
+        </script>
+    </body>
+
+</html>

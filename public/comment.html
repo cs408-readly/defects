@@ -1,0 +1,28 @@
+</!DOCTYPE html>
+<html>
+<head>
+	<title>Comments</title>
+	<script src="https://cdn.jsdelivr.net/riot/3.1/riot.min.js"></script>
+	<script src="./dist/comment.js"></script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=412182572470320";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+<comment></comment>
+<script type="text/javascript">
+	var URL = document.URL;
+	riot.mount('*', {
+            URL: URL
+	});
+</script>
+
+</body>
+</html>

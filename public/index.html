@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+    <head>
+
+        <meta charset="utf-8">
+
+        <title>Home</title>
+
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+        <!-- Riot import -->
+        <script src="https://cdn.jsdelivr.net/riot/3.1/riot.min.js"></script>
+        
+        <!-- Riot tags import -->
+        <script src="./dist/news-article.js"></script>
+        <script src="./dist/header.js"></script>
+        <script src="./dist/sidebar.js"></script>
+        <script src="./dist/todo.js"></script>
+
+        <!-- Facebook meta Tags -->
+        <meta property="og:type"               content="article" />
+        <meta property="og:title"              content="Readly" />
+        <meta property="og:description"        content="News tailered for you." />
+    </head>
+
+    <body>
+        <script>
+          window.fbAsyncInit = function() {
+            FB.init({
+              appId      : '412182572470320',
+              xfbml      : true,
+              version    : 'v2.8'
+            });
+            FB.AppEvents.logPageView();
+          };
+
+          (function(d, s, id){
+             var js, fjs = d.getElementsByTagName(s)[0];
+             if (d.getElementById(id)) {return;}
+             js = d.createElement(s); js.id = id;
+             js.src = "//connect.facebook.net/en_US/sdk.js";
+             fjs.parentNode.insertBefore(js, fjs);
+           }(document, 'script', 'facebook-jssdk'));
+        </script>
+
+        <header></header>
+
+
+
+
+        <div id=container>
+            <sidebar></sidebar>
+            <ul id="list"></ul>
+
+            <button type="button" onclick="getNews()">Get more news!</button>
+        </div>
+
+        <style type="text/css">
+
+            #container {
+                padding-top:60px;
+                text-align: center;
+            }
+
+            #list {
+                margin: auto;
+                width: 600px;
+                list-style: none;
+            }
+
+            body {
+                margin: 0px;
+            }
+
+        </style>
+
+        <script>
+
+
+        var sharedObservable = riot.observable();
+        getNewsArticles();
+
+        var list = document.getElementById('list');
+
+        riot.mount('*', {
+            observable: sharedObservable
+        });
+
+        sharedObservable.on('source-select', function(source) {
+
+            while( list.firstChild ){
+                  list.removeChild( list.firstChild );
+            }
+            getNewsArticles(source);
+        });
+
+        function getNews() {
+
+            getNewsArticles();
+        };
+
+        function showNews(articles) {
+            articles.forEach(function(article) {
+                var li = document.createElement('li');
+                list.append(li);
+
+                var tag = document.createElement('news-article');
+                li.appendChild(tag);
+
+                riot.mount(tag, 'news-article', {
+                    message: article.title,
+                    id: article._id,
+                    link: article.url,
+                    content: article.description,
+                    source: article.source,
+                    upvotes: article.upvote,
+                    downvotes: article.downvote,
+                    observable: sharedObservable
+                });
+            });
+        }
+        function getNewsArticles(source) {
+            var send_data = {
+                source: source,
+            };
+
+            var x = new XMLHttpRequest();
+            x.open('POST', '/trending', true);
+            x.setRequestHeader("Content-Type", "application/json");
+            x.send(JSON.stringify(send_data));
+
+            x.onreadystatechange = function() {
+                console.log(JSON.parse(x.responseText));
+                showNews(JSON.parse(x.responseText).articles);
+            }
+        }
+
+        function settings() {
+          console.log('Settings button pressed');
+          window.open('/settings.html')
+        }
+
+      </script>
+    </body>
+</html>
