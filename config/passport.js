@@ -70,20 +70,6 @@ module.exports = function(passport) {
             } else {
 
                 var newUser = new User();
-
-                if(req.body.firstName == "" || req.body.lastName == "" || req.body.email == ""|| req.body.password == "") {
-                    return done(err);
-                }
-                if((req.body.email.indexOf("@") < 0)) {
-                    //invalid email address
-                    return done(err);
-                }
-                var passlength = req.body.password.length;
-
-                //if password is between 5 and 16
-                if(!(passlength > 5 && passlength < 16)) {
-                    return done(err);
-                }
                 
                 newUser.local.firstName = req.body.firstName;
                 newUser.local.lastName = req.body.lastName;
