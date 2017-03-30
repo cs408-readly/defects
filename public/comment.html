@@ -19,6 +19,22 @@
 <comment></comment>
 <script type="text/javascript">
 	var URL = document.URL;
+
+	var articleID = "";
+	var flag = false;
+	for(var i = 0; i<URL.length; i++) {
+		if(URL.charAt(i)) {
+			if(flag) {
+				articleID = articleID + URL.charAt(i);
+			}
+			if(URL.charAt(i) == '#') {
+				flag = true;
+			}
+		}
+	}
+	var newURL = 'http://localhost:3000/comment.html#'+articleID;
+	URL = newURL;
+	
 	riot.mount('*', {
             URL: URL
 	});
