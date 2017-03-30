@@ -9,7 +9,7 @@ module.exports = function(app) {
         //console.log(_user);
         if(!authenticate(_user)) {
             //console.log("sending false");
-            res.send("false");
+            
         }
         else {
             User.findOne({ _id: req.user._id }, function(err, user) {
@@ -20,7 +20,7 @@ module.exports = function(app) {
                 user.local.email = _user.email;
                 user.local.password = user.generateHash(_user.password);
                 user.save();
-                res.send("true");
+                
 
             });
         }
@@ -30,7 +30,7 @@ module.exports = function(app) {
 function authenticate(_user) {
 
     if((_user.firstName === "")||(_user.lastName === "")||(_user.email === "")||(_user.password === "")) {
-        return false;
+        return true;
 
     }
 
