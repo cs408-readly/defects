@@ -19,7 +19,7 @@
     share() {
         FB.ui({
           method: 'share',
-          href: this.opts.link,
+          href: 'google.com',
         }, function(response){});
     }
 
