@@ -32,7 +32,7 @@
         var oldUser = JSON.stringify(user);
         var newUserString = JSON.stringify(newUser);
         if(oldUser === newUserString) {
-            console.log("no changes have been made");
+            alert("no changes have been made");
         }
         else {
             //console.log(password);
