@@ -26,6 +26,8 @@
             email: email,
             password: pass
         }
+        
+        alert("cannot pass empty field");
 
         var user = this.opts.user
 
